@@ -1,0 +1,46 @@
+name: Lunch/Coffee reminder
+
+on:
+  schedule:
+    # Runs hourly; main.py checks whether it's currently 5 PM Pacific
+    # and no-ops otherwise. A fixed once-a-day UTC cron would drift
+    # wrong for half the year across the PST/PDT switch, so this is
+    # the more reliable pattern.
+    - cron: "0 * * * *"
+  workflow_dispatch:
+    inputs:
+      force:
+        description: "Bypass the 5PM Pacific time gate"
+        type: boolean
+        default: false
+      dry_run:
+        description: "Print instead of sending"
+        type: boolean
+        default: true
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run notifier
+        env:
+          GOOGLE_SHEET_ID: ${{ secrets.GOOGLE_SHEET_ID }}
+          GOOGLE_SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_JSON }}
+          SMTP_USER: ${{ secrets.SMTP_USER }}
+          SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+          PROFESSOR_EMAIL: ${{ secrets.PROFESSOR_EMAIL }}
+          DEBUG_EMAIL: ${{ secrets.DEBUG_EMAIL }}
+        run: |
+          ARGS=""
+          if [ "${{ github.event.inputs.force }}" = "true" ]; then ARGS="$ARGS --force"; fi
+          if [ "${{ github.event.inputs.dry_run }}" = "true" ]; then ARGS="$ARGS --dry-run"; fi
+          python main.py $ARGS
