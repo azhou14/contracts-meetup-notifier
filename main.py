@@ -71,9 +71,10 @@ def main() -> int:
     from_addr = os.environ["SMTP_USER"]
     professor_addr = os.environ["PROFESSOR_EMAIL"]
     debug_addr = os.environ["DEBUG_EMAIL"]
+    organizer_addr = os.environ["ORGANIZER_EMAIL"]
 
     for event in matches:
-        msg = build_message(event, from_addr, professor_addr, debug_addr)
+        msg = build_message(event, from_addr, professor_addr, debug_addr, organizer_addr)
         print(f"--- {event.kind} on {event.event_date} @ {event.location_display} ---")
         print(f"To: {msg['To']}")
         print(f"Cc: {msg['Cc']}")

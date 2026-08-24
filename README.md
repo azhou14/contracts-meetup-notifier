@@ -24,7 +24,7 @@ Actions, no server to maintain.
 ### 1. Google Sheets access (read-only)
 
 1. In Google Cloud Console, create a project (or reuse one) and enable
-   the **Google Sheets API**.
+   the **Google Drive API**.
 2. Create a **Service Account**, then create a JSON key for it and
    download it.
 3. Open the sign-up Google Sheet, click **Share**, and share it with

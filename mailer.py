@@ -25,12 +25,13 @@ def build_message(
     from_addr: str,
     professor_addr: str,
     debug_addr: str,
+    organizer_addr: str,
 ) -> MIMEMultipart:
     label = KIND_LABEL.get(event.kind, event.kind.title())
     date_str = event.event_date.strftime("%A, %B %-d")
 
     to_addrs = [a.email for a in event.attendees]
-    cc_addrs = [professor_addr, debug_addr]
+    cc_addrs = [professor_addr, debug_addr, organizer_addr]
 
     if to_addrs:
         subject = f"Reminder: {label} tomorrow ({date_str}) at {event.location_display}"

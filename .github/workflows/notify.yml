@@ -39,6 +39,7 @@ jobs:
           SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
           PROFESSOR_EMAIL: ${{ secrets.PROFESSOR_EMAIL }}
           DEBUG_EMAIL: ${{ secrets.DEBUG_EMAIL }}
+          ORGANIZER_EMAIL: ${{ secrets.ORGANIZER_EMAIL }}
         run: |
           ARGS=""
           if [ "${{ github.event.inputs.force }}" = "true" ]; then ARGS="$ARGS --force"; fi
