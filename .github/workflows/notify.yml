@@ -10,7 +10,7 @@ on:
   workflow_dispatch:
     inputs:
       force:
-        description: "Bypass the 5PM Pacific time gate"
+        description: "Bypass the 7PM Pacific time gate"
         type: boolean
         default: false
       dry_run:
