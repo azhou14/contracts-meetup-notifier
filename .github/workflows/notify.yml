@@ -2,7 +2,7 @@ name: Lunch/Coffee reminder
 
 on:
   schedule:
-    # Runs hourly; main.py checks whether it's currently 5 PM Pacific
+    # Runs hourly; main.py checks whether it's currently 7 PM Pacific
     # and no-ops otherwise. A fixed once-a-day UTC cron would drift
     # wrong for half the year across the PST/PDT switch, so this is
     # the more reliable pattern.
