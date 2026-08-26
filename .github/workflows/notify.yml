@@ -6,11 +6,14 @@ on:
     # and no-ops otherwise. A fixed once-a-day UTC cron would drift
     # wrong for half the year across the PST/PDT switch, so this is
     # the more reliable pattern.
-    - cron: "0 * * * *"
+    #
+    # Arbitrarily on the 7 of the hour to avoid colliding with top of the
+    # hour traffic (I have no idea if this works but it's worth a shot)
+    - cron: "7 * * * *"
   workflow_dispatch:
     inputs:
       force:
-        description: "Bypass the 7PM Pacific time gate"
+        description: "Bypass the 6PM Pacific time gate"
         type: boolean
         default: false
       dry_run:

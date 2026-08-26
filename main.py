@@ -33,7 +33,7 @@ from sheet_parser import events_on, parse_workbook
 from sheets_client import download_sheet_as_xlsx
 
 PACIFIC = ZoneInfo("America/Los_Angeles")
-TARGET_HOUR_PACIFIC = 19  # 7 PM
+TARGET_HOUR_PACIFIC = 18  # 6 PM
 DOWNLOAD_PATH = "/tmp/sheet_download.xlsx"
 
 
@@ -52,7 +52,7 @@ def main() -> int:
     now_pacific = datetime.now(PACIFIC)
 
     if not args.force and not is_send_window(now_pacific):
-        print(f"Not the 7PM Pacific window (now: {now_pacific.strftime('%H:%M %Z')}); skipping.")
+        print(f"Not the 6PM Pacific window (now: {now_pacific.strftime('%H:%M %Z')}); skipping.")
         return 0
 
     tomorrow = (now_pacific + timedelta(days=1)).date()
