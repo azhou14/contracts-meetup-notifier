@@ -6,10 +6,7 @@ on:
     # and no-ops otherwise. A fixed once-a-day UTC cron would drift
     # wrong for half the year across the PST/PDT switch, so this is
     # the more reliable pattern.
-    #
-    # Arbitrarily on the 7 of the hour to avoid colliding with top of the
-    # hour traffic (I have no idea if this works but it's worth a shot)
-    - cron: "7 * * * *"
+    - cron: "0 * * * *"
   workflow_dispatch:
     inputs:
       force:
