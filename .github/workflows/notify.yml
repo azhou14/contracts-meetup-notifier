@@ -6,13 +6,10 @@ on:
     # and no-ops otherwise. A fixed once-a-day UTC cron would drift
     # wrong for half the year across the PST/PDT switch, so this is
     # the more reliable pattern.
-    - cron: "0 * * * *"
+    - cron: "0 18 * * *"
+      timezone: "America/Los_Angeles"
   workflow_dispatch:
     inputs:
-      force:
-        description: "Bypass the 6PM Pacific time gate"
-        type: boolean
-        default: false
       dry_run:
         description: "Print instead of sending"
         type: boolean
@@ -42,6 +39,5 @@ jobs:
           ORGANIZER_EMAIL: ${{ secrets.ORGANIZER_EMAIL }}
         run: |
           ARGS=""
-          if [ "${{ github.event.inputs.force }}" = "true" ]; then ARGS="$ARGS --force"; fi
           if [ "${{ github.event.inputs.dry_run }}" = "true" ]; then ARGS="$ARGS --dry-run"; fi
           python main.py $ARGS
