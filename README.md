@@ -7,10 +7,8 @@ Actions, no server to maintain.
 ## How it works
 
 - Runs **hourly** via GitHub Actions cron (`0 * * * *`, UTC).
-- `main.py` checks whether it's currently the 5 PM Pacific hour (using
-  `zoneinfo`, so it's automatically correct across PST/PDT) and no-ops
-  every other hour. This avoids the classic bug of hardcoding a UTC
-  cron time that's only right for half the year.
+- `main.py` checks whether it's currently the 6 PM Pacific hour (possibly off slightly depending on DST - use of zoneinfo has been removed) and no-ops
+  every other hour. Github Actions latency renders the offset irrelevant anyways.
 - If it's the right hour, it downloads the Google Sheet as `.xlsx`,
   parses the "Class Lunch" and "Class Coffee" tabs (ignores "Monday
   Snacks" and any other tabs), finds events happening **tomorrow**, and
